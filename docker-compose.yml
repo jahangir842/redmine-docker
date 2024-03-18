@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: redmine
+      POSTGRES_USER: redmine
+      POSTGRES_PASSWORD: your_postgres_password
+    networks:
+      - redmine-net
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redmine:
+    image: redmine:latest
+    environment:
+      REDMINE_DB_POSTGRES: postgres
+      REDMINE_DB_DATABASE: redmine
+      REDMINE_DB_USERNAME: redmine
+      REDMINE_DB_PASSWORD: your_redmine_db_password
+    networks:
+      - redmine-net
+    ports:
+      - "3000:3000"
+    volumes:
+      - redmine-data:/usr/src/redmine/files
+
+networks:
+  redmine-net:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  redmine-data:
