@@ -1,2 +1,2 @@
 # redmine-docker
-redmine docker installation with mysql
+redmine docker installation with postgres
